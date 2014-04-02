@@ -1,0 +1,139 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Page Title</title>
+		<!--link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" title="no title" charset="utf-8" /-->
+		<script src="js/moo.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mooValidation-core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mooValidation-rules.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.addEvent('domready',function(){
+			
+				testForm = new mooValidation({
+					form:'form1',
+					rules:{
+						grupoCodigo:{
+							require: true,
+							number: true,
+							intercept:function(e){
+								console.info(e);
+							}
+						},
+						grupoCheck:{
+							require: true
+						},
+						grupoRadio:{
+							require: true
+						}
+					},
+					errors:{
+						grupoCodigo:{
+							require: "é necessário preencher um dos codigos no grupo",
+							number: "o codigo só aceita numeros"
+						},
+						grupoCheck:{
+							require: "é necessário checar um dos checkbox"
+						},
+						grupoRadio:{
+							require: "é necessário checar um radio"
+						}
+					},
+					errorsContainerElement:'span',
+					errorsIntercept: function(e,t){
+						console.info(((t)?'limpo':'erro')+' em '+e.elementName);
+					}
+				});
+				
+			});
+		</script>
+		<style type="text/css" media="screen">
+			label, fieldset, p, form{clear:both;float:left}
+			.fv-error-element{outline:red 1px solid}
+			.fv-error-label{border:red 1px dotted}
+			
+			fieldset .fv-error-element{outline:none}
+			fieldset .fv-error-label{border:none}
+			
+			.fv-error-legend{border:red 1px dotted}
+			.fv-error-fieldset{border:red 1px solid}
+		</style>
+	</head>
+	<body>
+		<form id="form1" class="form-structure aluno-frm" action="togo.html">
+			<ul id="error-container1">
+			</ul>
+			<!-- TESTE INPUT LABEL ENVOLVIDO 
+			<label>
+				<span>Código do aluno:</span>
+				<input type="text" style="width: 166px;" name="input1" class="grupoCodigo"/>
+			</label>
+			<label>
+				<span>Código do aluno 2:</span>
+				<input type="text" style="width: 166px;" name="input2" class="grupoCodigo"/>
+			</label>
+			<p>
+				<label><span>selecione 1: </span><input type="checkbox" name="check1" class="grupoCheck" /></label>
+				<label><span>selecione 2: </span><input type="checkbox" name="check2" class="grupoCheck" /></label>
+				<label><span>selecione 3: </span><input type="checkbox" name="check3" class="grupoCheck" /></label>
+			</p>
+			<p>
+				<label><span>selecione 1: </span><input type="radio" name="radio" class="grupoRadio" /></label>
+				<label><span>selecione 2: </span><input type="radio" name="radio" class="grupoRadio" /></label>
+				<label><span>selecione 3: </span><input type="radio" name="radio" class="grupoRadio" /></label>
+			</p>
+			-->
+			
+			<!-- TESTE INPUT LABEL SEPARADO 
+			<p>
+				<label>Código do aluno:</label>
+				<input type="text" style="width: 166px;" name="input1" class="grupoCodigo"/>
+			</p>
+			<p>
+				<label>Código do aluno 2:</label>
+				<input type="text" style="width: 166px;" name="input2" class="grupoCodigo"/>
+			</p>
+			<p>
+				<span><label>selecione 1: </label><input type="checkbox" name="check1" class="grupoCheck" /></span>
+				<span><label>selecione 2: </label><input type="checkbox" name="check2" class="grupoCheck" /></span>
+				<span><label>selecione 3: </label><input type="checkbox" name="check3" class="grupoCheck" /></span>
+			</p>
+			<p>
+				<span><label>selecione 1: </label><input type="radio" name="radio" class="grupoRadio" /></span>
+				<span><label>selecione 2: </label><input type="radio" name="radio" class="grupoRadio" /></span>
+				<span><label>selecione 3: </label><input type="radio" name="radio" class="grupoRadio" /></span>
+			</p>
+			-->
+			
+			
+			<!-- TESTE INPUT LABEL ENVOLVIDO COM FIELD SET-->
+			<label class="input1">
+				<span>Código do aluno:</span>
+				<input type="text" style="width: 166px;" name="input1" class="grupoCodigo"/>
+			</label>
+			<label class="xyz">
+				<span>Código do aluno 2:</span>
+				<input type="text" style="width: 166px;" id="xyz" name="input2" class="grupoCodigo"/>
+			</label>
+			
+			<fieldset>
+				<legend class="check1">CHECKBOX</legend>
+				<label><span>selecione 1: </span><input type="checkbox" name="check1" class="grupoCheck" /></label>
+				<label><span>selecione 2: </span><input type="checkbox" name="check2" class="grupoCheck" /></label>
+				<label><span>selecione 3: </span><input type="checkbox" name="check3" class="grupoCheck" /></label>
+			</fieldset>
+			<fieldset>
+				<legend class="radio">RADIO</legend>
+				<span>selecione 1: </span><input type="radio" name="radio" class="grupoRadio" />
+				<span>selecione 2: </span><input type="radio" name="radio" class="grupoRadio" />
+				<span>selecione 3: </span><input type="radio" name="radio" class="grupoRadio" />
+			</fieldset>
+			
+			<p>
+				<input type="submit" value="salvar" class="button fright"/>
+				<input type="reset" value="apagar" class="button fright"/>
+			</p>
+		</form>
+	</body>
+</html>

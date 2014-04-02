@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Page Title</title>
+		<link rel="stylesheet" type="text/css" media="screen" href="css/screen.css" />
+		<script src="js/moo.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mooValidation-core.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mooValidation-rules.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/mooValidation-mask.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" charset="utf-8">
+			window.addEvent('domready',function(){
+			
+				commentForm = new mooValidation({
+					form:'commentForm',
+					mask:{
+						url:'http://aaaaaaaaa.aaa.aa'	
+					},
+					rules:{
+						name:{require: true, minLength: 2},
+						email:{require: true, email: true},
+						url:{require: false, url: true},
+						comment:{require: true}
+					},
+					errors:{
+						name:{require: "nome é obrigatório", minLength:"precisa ter no minimo 2 caracteres"},
+						email:{require: "email é obrigatório", email:"email digitado não é valido"},
+						url:{url:"url digitada não é valida"},
+						comment:{require: "commentario é obrigatório"}
+					},
+					errorsContainerElement:'label',
+					errorsContainerElementClass:'error',
+					errorsElementClass:'error'
+				});
+				
+				
+				signupForm = new mooValidation({
+					form:'signupForm',
+					rules:{
+						firstname:{require: true},
+						lastname:{require: true},
+						username:{require: true, minLength: 2},
+						password:{require: true, minLength: 5},
+						confirm_password:{require: true, equal: 'password'},
+						email:{require: true, email: true},
+						newsletter:{intercept:function(v,e){
+							console.info(v);
+							if(v == 'on'){
+								$('newsletter_topics').removeClass('gray');
+								$('newsletter_topics').getElements('input').removeProperty('disabled');
+								this.options.rules.topic.require = true;
+							}else{
+								$('newsletter_topics').addClass('gray');
+								$('newsletter_topics').getElements('input').setProperty('disabled','disabled');
+								this.options.rules.topic.require = false;
+							}
+							return true;
+						}},
+						topic:{require: false},
+						agree:{require: true}
+					},
+					errors:{
+						firstname:{require: "nome é obrigatorio"},
+						lastname:{require: "sobrenome é obrigatorio"},
+						username:{require: "usuario é obrigatorio", minLength: "precisa ter no minimo 2 caracteres"},
+						password:{require: "senha é obrigatorio", minLength: "precisa ter no minimo 5 caracteres"},
+						confirm_password:{require: "confirme sua senha", equal: 'password'},
+						email:{require: "email é obrigatorio", email: "email digitado não é valido"},
+						newsletter:{},
+						topic:{require:"cheque algum topico para receber as news"},
+						agree:{require: "é necessario aceitar os termos"}
+					},
+					errorsContainerElement:'label',
+					errorsContainerElementClass:'error',
+					errorsElementClass:'error'
+				})
+				
+			});
+		</script>
+		<style type="text/css">
+		#commentForm { width: 500px; }
+		#commentForm label { width: 250px; }
+		#commentForm label.error, #commentForm input.submit { margin-left: 253px; }
+		#signupForm { width: 670px; }
+		#signupForm label.error {
+			margin-left: 10px;
+			width: auto;
+			display: inline;
+		}
+		#newsletter_topics label.error {
+			display: none;
+			margin-left: 103px;
+		}
+		</style>
+
+	</head>
+	<body>
+		<div id="main">
+		<form action="" method="get" id="commentForm" class="cmxform" style="display: block;">
+			<fieldset>
+				<legend>Please provide your name, email address (won't be published) and a comment</legend>
+				<p>
+					<label for="cname"><span style="display: block; width: 250px;">Name (required, at least 2 characters)</span></label>
+					<input  name="name" id="cname"/>
+				</p><p>
+					<label for="cemail"><span style="display: block; width: 250px;">E-Mail (required)</span></label>
+					<input  name="email" id="cemail"/>
+				</p>
+				<p>
+					<label for="curl"><span style="display: block; width: 250px;">URL (optional)</span></label>
+					<input value=""  name="url" id="curl"/>
+				</p>
+				<p>
+					<label for="ccomment"><span style="display: block; width: 250px;">Your comment (required)</span></label>
+					<textarea  name="comment" id="ccomment"></textarea>
+				</p>
+				<p>
+					<input type="submit" value="Submit" class="submit"/>
+				</p>
+			</fieldset>
+		</form>
+		<form action="" method="get" id="signupForm" class="cmxform" style="display: block;">
+			<fieldset>
+				<legend>Validating a complete form</legend>
+				<p>
+					<label for="firstname" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">Firstname</span></label>
+					<input name="firstname" id="firstname"/>
+				</p>
+				<p>
+					<label for="lastname" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">Lastname</span></label>
+					<input name="lastname" id="lastname"/>
+				</p>
+				<p>
+					<label for="username" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">Username</span></label>
+					<input name="username" id="username"/>
+				</p>
+				<p>
+					<label for="password" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">Password</span></label>
+					<input type="password" name="password" id="password"/>
+				</p>
+				<p>
+					<label for="confirm_password" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">Confirm password</span></label>
+					<input type="password" name="confirm_password" id="confirm_password"/>
+				</p>
+				<p>
+					<label for="email" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">Email</span></label>
+					<input name="email" id="email"/>
+				</p>
+				<p>
+					<label for="agree" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">Please agree to our policy</span></label>
+					<input type="checkbox" name="agree" id="agree" class="checkbox"/>
+				</p>
+				<p>
+					<label for="newsletter" style="display: -moz-inline-box;"><span style="display: block; width: 100px;">I'd like to receive the newsletter</span></label>
+					<input type="checkbox" name="newsletter" id="newsletter" class="checkbox"/>
+				</p>
+				<fieldset id="newsletter_topics" class="gray">
+					<legend>Topics (select at least two) - note: would be hidden when newsletter isn't selected, but is visible here for the demo</legend>
+					
+					<input type="checkbox" name="topic" value="marketflash" id="topic_marketflash" disabled=""/>
+					<label for="topic_marketflash">	Marketflash</label>
+					
+					<input type="checkbox" name="topic" value="fuzz" id="topic_fuzz" disabled=""/>
+					<label for="topic_fuzz">Latest fuzz</label>
+					
+					<input type="checkbox" name="topic" value="digester" id="topic_digester" disabled=""/>
+					<label for="topic_digester">Mailing list digester</label>
+				</fieldset>
+				<p>
+					<input type="submit" value="Submit" class="submit"/>
+				</p>
+			</fieldset>
+		</form>
+		</div>
+	</body>
+</html>
